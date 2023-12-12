@@ -18,10 +18,8 @@ function App() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        console.log("hit app");
-        const token = localStorage.getItem("token");
-        console.log(token);
+      try {        
+        const token = localStorage.getItem("token");        
         if (!token) {
           return navigate("/login");
         }
