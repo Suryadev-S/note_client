@@ -11,7 +11,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
-const Nav = () => {    
+const Nav = () => {
     const [query, setQuery] = useState("");
     const { notes, setNotes } = useContext(Mycontext);
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Nav = () => {
     const handlePrivate = async (id, pri) => {
         const response = await axios.put("https://noteapi-g1nt.onrender.com/notes/access", { id: id, private: pri });
         if (response.data) {
-            setNotes([response.data.note,...filteredNotes(response.data.note._id)]);
+            setNotes([response.data.note, ...filteredNotes(response.data.note._id)]);
             alert(response.data.msg);
         }
         else {
@@ -70,10 +70,10 @@ const Nav = () => {
                                         <span className="visually-hidden">Toggle Dropend</span>
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li className="dropdown-item"><Link to={`/editor/${note._id}`}><FaPen /> Edit</Link></li>
-                                        <li className="dropdown-item" onClick={()=>handleDelete(note._id)}><FaRegTrashAlt /> Delete</li>
-                                        {note.private && <li className="dropdown-item" onClick={()=> handlePrivate(note._id,note.private)}><IoMdCloudUpload />Private</li>}                                        
-                                        {!note.private && <li className="dropdown-item" onClick={()=> handlePrivate(note._id,note.private)}><IoMdCloudDone />Public</li>}
+                                        <Link to={`/editor/${note._id}`}><li className="dropdown-item"><FaPen /> Edit</li></Link>
+                                        <li className="dropdown-item" onClick={() => handleDelete(note._id)}><FaRegTrashAlt /> Delete</li>
+                                        {note.private && <li className="dropdown-item" onClick={() => handlePrivate(note._id, note.private)}><IoMdCloudUpload /> Private</li>}
+                                        {!note.private && <li className="dropdown-item" onClick={() => handlePrivate(note._id, note.private)}><IoMdCloudDone /> Public</li>}
                                     </ul>
                                 </div>
                             </div>
