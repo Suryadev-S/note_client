@@ -48,6 +48,24 @@ const Edit = () => {
         }
     }), []);
 
+    const handleImage = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append("upload_preset", "media_preset");
+
+        try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dnxpue9kq/image/upload", formData);
+            const imageUrl = response.data.secure_url;
+            const quill = quillRef.current.getEditor();
+            const range = quill.getSelection();
+            quill.insertEmbed(range.index, 'image', imageUrl);
+            // console.log(response.data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     const filteredNotes = (id) => {
         return notes.filter((note) => note._id != id)
     }

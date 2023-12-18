@@ -54,7 +54,7 @@ const Editor = () => {
             const quill = quillRef.current.getEditor();
             const range = quill.getSelection();
             quill.insertEmbed(range.index, 'image', imageUrl);
-            console.log(response.data);
+            // console.log(response.data);
         }
         catch (err) {
             console.log(err);
